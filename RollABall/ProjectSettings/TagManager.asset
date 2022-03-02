@@ -6,6 +6,8 @@ TagManager:
   tags:
   - PickUp
   - Key
+  - Door
+  - Win
   layers:
   - Default
   - TransparentFX

@@ -8,21 +8,24 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 0;
     public TextMeshProUGUI countText; 
+    public TextMeshProUGUI keyText;
     public GameObject winTextObject; 
 
     private Rigidbody rb;
     private int count; 
+    private int keys;
     private float movementX;
     private float movementY;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         count = 0;
+        keys = 0;
 
         SetCountText();
-        winTextObject.SetActive(false);
+        SetKeyText();
+        winTextObject.SetActive(true);
     }
 
     private void Update()
@@ -47,10 +50,6 @@ public class PlayerController : MonoBehaviour
     void SetCountText()
     {
         countText.text = "Count + " + count.ToString();
-        if(count >= 12)
-        {
-            winTextObject.SetActive(true);
-        }
     }
 
     private void FixedUpdate()
@@ -69,8 +68,29 @@ public class PlayerController : MonoBehaviour
 
           SetCountText();
         }
+        if (other.gameObject.CompareTag ("Key"))
+		{
+			other.gameObject.SetActive (false);
+			keys = keys + 1;
+			SetKeyText ();
+        }
+        if (other.gameObject.CompareTag ("Door"))
+		{
+			if (keys > 0)	
+			{	other.gameObject.SetActive (false);
+				keys = keys - 1;
+				SetKeyText ();
+            }
+        }
+        if (other.gameObject.CompareTag ("Win"))
+		{
+			winTextObject.SetActive(true);
+		}
         
     }
-
-
+    void SetKeyText()
+    {
+        keyText.text = "Keys: " + keys.ToString();
+    }
+    
 }
