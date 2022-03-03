@@ -22,10 +22,10 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         count = 0;
         keys = 0;
-
         SetCountText();
+             winTextObject.SetActive(false);
         SetKeyText();
-        winTextObject.SetActive(true);
+       
     }
 
     private void Update()
